@@ -1,5 +1,5 @@
 <a
-    class="relative w-full h-[400px] overflow-hidden block"
+    {{ $attributes->class(['relative w-full h-[400px] overflow-hidden block']) }}
     href="#"
 >
     <img

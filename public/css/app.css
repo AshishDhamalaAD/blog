@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.0.23 | MIT License | https://tailwindcss.com
+! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -628,11 +628,17 @@ select {
     max-width: 1536px;
   }
 }
+.invisible {
+  visibility: hidden;
+}
 .absolute {
   position: absolute;
 }
 .relative {
   position: relative;
+}
+.bottom-0 {
+  bottom: 0px;
 }
 .left-0 {
   left: 0px;
@@ -640,8 +646,23 @@ select {
 .right-0 {
   right: 0px;
 }
-.bottom-0 {
-  bottom: 0px;
+.top-0 {
+  top: 0px;
+}
+.top-10 {
+  top: 2.5rem;
+}
+.top-20 {
+  top: 5rem;
+}
+.top-16 {
+  top: 4rem;
+}
+.top-14 {
+  top: 3.5rem;
+}
+.top-\[57px\] {
+  top: 57px;
 }
 .z-0 {
   z-index: 0;
@@ -649,11 +670,17 @@ select {
 .z-50 {
   z-index: 50;
 }
+.z-10 {
+  z-index: 10;
+}
 .col-span-3 {
   grid-column: span 3 / span 3;
 }
 .col-span-1 {
   grid-column: span 1 / span 1;
+}
+.col-span-2 {
+  grid-column: span 2 / span 2;
 }
 .mx-auto {
   margin-left: auto;
@@ -664,6 +691,9 @@ select {
 }
 .-ml-px {
   margin-left: -1px;
+}
+.mt-8 {
+  margin-top: 2rem;
 }
 .mt-6 {
   margin-top: 1.5rem;
@@ -695,9 +725,6 @@ select {
 .mt-2 {
   margin-top: 0.5rem;
 }
-.mt-8 {
-  margin-top: 2rem;
-}
 .block {
   display: block;
 }
@@ -719,14 +746,14 @@ select {
 .h-5 {
   height: 1.25rem;
 }
+.h-4 {
+  height: 1rem;
+}
 .h-16 {
   height: 4rem;
 }
 .h-10 {
   height: 2.5rem;
-}
-.h-4 {
-  height: 1rem;
 }
 .h-6 {
   height: 1.5rem;
@@ -734,26 +761,26 @@ select {
 .h-20 {
   height: 5rem;
 }
-.h-2 {
-  height: 0.5rem;
-}
-.h-32 {
-  height: 8rem;
-}
-.h-64 {
-  height: 16rem;
-}
-.h-\[200px\] {
-  height: 200px;
-}
 .h-\[400px\] {
   height: 400px;
+}
+.h-full {
+  height: 100%;
 }
 .h-3 {
   height: 0.75rem;
 }
-.h-full {
-  height: 100%;
+.h-32 {
+  height: 8rem;
+}
+.h-2 {
+  height: 0.5rem;
+}
+.h-48 {
+  height: 12rem;
+}
+.h-40 {
+  height: 10rem;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -761,14 +788,14 @@ select {
 .w-5 {
   width: 1.25rem;
 }
+.w-4 {
+  width: 1rem;
+}
 .w-full {
   width: 100%;
 }
 .w-auto {
   width: auto;
-}
-.w-4 {
-  width: 1rem;
 }
 .w-6 {
   width: 1.5rem;
@@ -776,14 +803,29 @@ select {
 .w-20 {
   width: 5rem;
 }
+.w-3 {
+  width: 0.75rem;
+}
 .w-48 {
   width: 12rem;
+}
+.w-32 {
+  width: 8rem;
+}
+.w-16 {
+  width: 4rem;
 }
 .w-2 {
   width: 0.5rem;
 }
-.w-3 {
-  width: 0.75rem;
+.w-64 {
+  width: 16rem;
+}
+.min-w-\[300px\] {
+  min-width: 300px;
+}
+.min-w-full {
+  min-width: 100%;
 }
 .max-w-7xl {
   max-width: 80rem;
@@ -802,6 +844,10 @@ select {
 }
 .origin-top-right {
   transform-origin: top right;
+}
+.translate-y-10 {
+  --tw-translate-y: 2.5rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .scale-95 {
   --tw-scale-x: .95;
@@ -852,15 +898,8 @@ select {
 .gap-8 {
   gap: 2rem;
 }
-.space-x-8 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(2rem * var(--tw-space-x-reverse));
-  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
-}
-.space-y-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+.gap-4 {
+  gap: 1rem;
 }
 .space-x-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -872,8 +911,36 @@ select {
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
 }
+.space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(2rem * var(--tw-space-x-reverse));
+  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
 .overflow-hidden {
   overflow: hidden;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-ellipsis {
+  text-overflow: ellipsis;
 }
 .rounded-md {
   border-radius: 0.375rem;
@@ -943,16 +1010,12 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(238 242 255 / var(--tw-bg-opacity));
 }
+.bg-black\/30 {
+  background-color: rgb(0 0 0 / 0.3);
+}
 .bg-gray-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-.bg-black\/30 {
-  background-color: rgb(0 0 0 / 0.3);
 }
 .fill-current {
   fill: currentColor;
@@ -982,6 +1045,14 @@ select {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -994,33 +1065,17 @@ select {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
-}
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-}
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-.px-16 {
-  padding-left: 4rem;
-  padding-right: 4rem;
 }
 .px-0 {
   padding-left: 0px;
   padding-right: 0px;
 }
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 .pt-6 {
   padding-top: 1.5rem;
@@ -1056,6 +1111,10 @@ select {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -1064,26 +1123,22 @@ select {
   font-size: 1rem;
   line-height: 1.5rem;
 }
-.text-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
 .font-medium {
   font-weight: 500;
 }
-.font-semibold {
-  font-weight: 600;
-}
 .font-bold {
   font-weight: 700;
+}
+.font-semibold {
+  font-weight: 600;
 }
 .uppercase {
   text-transform: uppercase;
@@ -1104,6 +1159,10 @@ select {
 .text-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .text-gray-800 {
   --tw-text-opacity: 1;
@@ -1137,17 +1196,13 @@ select {
   --tw-text-opacity: 1;
   color: rgb(79 70 229 / var(--tw-text-opacity));
 }
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-.text-gray-300 {
-  --tw-text-opacity: 1;
-  color: rgb(209 213 219 / var(--tw-text-opacity));
-}
 .text-gray-200 {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+.text-theme {
+  --tw-text-opacity: 1;
+  color: rgb(142 124 195 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;
@@ -1211,20 +1266,34 @@ select {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.transition-colors {
+  transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
 .duration-150 {
   transition-duration: 150ms;
+}
+.duration-500 {
+  transition-duration: 500ms;
 }
 .duration-200 {
   transition-duration: 200ms;
 }
 .duration-75 {
   transition-duration: 75ms;
-}
-.duration-1000 {
-  transition-duration: 1000ms;
-}
-.duration-500 {
-  transition-duration: 500ms;
 }
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1275,6 +1344,10 @@ select {
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+.hover\:text-theme:hover {
+  --tw-text-opacity: 1;
+  color: rgb(142 124 195 / var(--tw-text-opacity));
 }
 .focus\:z-10:focus {
   z-index: 10;
@@ -1362,6 +1435,28 @@ select {
 .disabled\:opacity-25:disabled {
   opacity: 0.25;
 }
+.group:hover .group-hover\:visible {
+  visibility: visible;
+}
+.group:hover .group-hover\:block {
+  display: block;
+}
+.group:hover .group-hover\:translate-y-10 {
+  --tw-translate-y: 2.5rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:translate-y-0 {
+  --tw-translate-y: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:scale-125 {
+  --tw-scale-x: 1.25;
+  --tw-scale-y: 1.25;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
 @media (min-width: 640px) {
 
   .sm\:-my-px {
@@ -1419,10 +1514,6 @@ select {
   }
 }
 @media (min-width: 1024px) {
-
-  .lg\:p-8 {
-    padding: 2rem;
-  }
 
   .lg\:px-8 {
     padding-left: 2rem;

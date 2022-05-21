@@ -1,6 +1,6 @@
 <a
     {{ $attributes->class(['relative w-full h-[400px] overflow-hidden block']) }}
-    href="#"
+    href="{{ route('articles.show', 'article-slug') }}"
 >
     <img
         src="https://4.bp.blogspot.com/-TDoUeEz_iGI/Wf8eItNC3aI/AAAAAAAAA6U/CM2Ztmr-czQOjoeivWCL60hGNfiRtNSPgCLcBGAs/s1600/pexels-photo-532571.jpeg"

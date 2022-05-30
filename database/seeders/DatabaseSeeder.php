@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@blog.test',
             'password' => Hash::make('admin@blog.test'),
         ]);
+
+        $this->call(SocialMediaSeeder::class);
     }
 }

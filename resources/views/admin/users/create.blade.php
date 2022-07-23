@@ -82,6 +82,24 @@
                     </div>
 
                     <div class="col-span-2">
+                        <div class="border-b border-blue-700">
+                            <span class="inline-block bg-blue-500 text-white px-4 py-2">Social Media</span>
+                        </div>
+
+                        <div class="space-y-6 mt-4">
+                            @foreach ($socialMedia as $social)
+                                <x-admin::input-group
+                                    :id="'social-media-'.$social->id"
+                                    :name="'social_media_urls['.$social->id.']'"
+                                    type="url"
+                                    :label="$social->name"
+                                    :value="$social->url"
+                                />
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="col-span-2">
                         <x-admin::button>Submit</x-admin::button>
                     </div>
                 </div>

@@ -729,11 +729,11 @@ select {
 .mb-4 {
   margin-bottom: 1rem;
 }
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
 .mb-1 {
   margin-bottom: 0.25rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 .-mr-2 {
   margin-right: -0.5rem;
@@ -792,14 +792,14 @@ select {
 .h-full {
   height: 100%;
 }
+.h-32 {
+  height: 8rem;
+}
 .h-10 {
   height: 2.5rem;
 }
 .h-6 {
   height: 1.5rem;
-}
-.h-32 {
-  height: 8rem;
 }
 .h-20 {
   height: 5rem;
@@ -968,6 +968,11 @@ select {
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1039,13 +1044,17 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
+.border-gray-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity));
+}
 .border-theme {
   --tw-border-opacity: 1;
   border-color: rgb(142 124 195 / var(--tw-border-opacity));
 }
-.border-gray-100 {
+.border-blue-700 {
   --tw-border-opacity: 1;
-  border-color: rgb(243 244 246 / var(--tw-border-opacity));
+  border-color: rgb(29 78 216 / var(--tw-border-opacity));
 }
 .bg-white {
   --tw-bg-opacity: 1;
@@ -1078,10 +1087,6 @@ select {
 .bg-black\/30 {
   background-color: rgb(0 0 0 / 0.3);
 }
-.bg-gray-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}
 .bg-\[\#3b5998\] {
   --tw-bg-opacity: 1;
   background-color: rgb(59 89 152 / var(--tw-bg-opacity));
@@ -1089,6 +1094,22 @@ select {
 .bg-\[\#00aced\] {
   --tw-bg-opacity: 1;
   background-color: rgb(0 172 237 / var(--tw-bg-opacity));
+}
+.bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+.bg-gray-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 .fill-current {
   fill: currentColor;
@@ -1138,6 +1159,10 @@ select {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
 }
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -1145,10 +1170,6 @@ select {
 .px-0 {
   padding-left: 0px;
   padding-right: 0px;
-}
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
 }
 .pl-3 {
   padding-left: 0.75rem;
@@ -1263,6 +1284,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
 .text-blue-500 {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
@@ -1270,10 +1295,6 @@ select {
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
-}
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .text-indigo-700 {
   --tw-text-opacity: 1;

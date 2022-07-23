@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UserRequest;
 use App\Models\Enums\UserTypeEnum;
+use App\Models\SocialMedia;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -31,6 +34,7 @@ class UsersController extends Controller
     public function create(Request $request)
     {
         $data['types'] = UserTypeEnum::cases();
+        $data['socialMedia'] = SocialMedia::select(['id', 'name'])->get();
         $data['user'] = new User([
             'type' => UserTypeEnum::NORMAL,
         ]);
@@ -38,24 +42,13 @@ class UsersController extends Controller
         return view('admin.users.create', $data);
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $validated = $request->validate([
-            'image' => ['bail', 'nullable', 'image', 'max:1024'],
-            'name' => ['bail', 'required', 'string', 'max:255'],
-            'email' => ['bail', 'required', 'email', 'max:255', Rule::unique(User::class)],
-            'password' => ['bail', 'required', 'string', Password::defaults(), 'confirmed'],
-            'description' => ['bail', 'required', 'string', 'min:10'],
-            'type' => ['bail', 'required', Rule::in(UserTypeEnum::values())],
-        ]);
+        $user = User::create($request->createData());
 
-        $validated['password'] = Hash::make($request->password);
-
-        if ($request->image) {
-            $validated['image'] = $request->file('image')->store('images');
+        if ($request->socialMediaUrls()->isNotEmpty()) {
+            $user->socialMedia()->attach($request->socialMediaUrls());
         }
-
-        User::create($validated);
 
         return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
     }
@@ -63,33 +56,25 @@ class UsersController extends Controller
     public function edit(Request $request, User $user)
     {
         $data['types'] = UserTypeEnum::cases();
-        $data['user'] = $user;
+        $data['user'] = $user->load(['socialMedia']);
+        $data['socialMedia'] = SocialMedia::select(['id', 'name'])
+            ->get()
+            ->map(function (SocialMedia $socialMedia) use ($user) {
+                $socialMedia->url = $user->socialMedia->firstWhere('id', $socialMedia->id)->pivot->url ?? '';
+
+                return $socialMedia;
+            });
 
         return view('admin.users.create', $data);
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        $validated = $request->validate([
-            'image' => ['bail', 'nullable', 'image', 'max:1024'],
-            'name' => ['bail', 'required', 'string', 'max:255'],
-            'email' => ['bail', 'required', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-            'password' => ['bail', 'nullable', 'string', Password::defaults(), 'confirmed'],
-            'description' => ['bail', 'required', 'string', 'min:10'],
-            'type' => ['bail', 'required', Rule::in(UserTypeEnum::values())],
-        ]);
+        $user->update($request->updateData($user));
 
-        $validated['password'] = $request->password ? Hash::make($request->password) : $user->password;
+        $user->socialMedia()->sync($request->socialMediaUrls());
 
-        if ($request->image) {
-            $user->deleteImage();
-
-            $validated['image'] = $request->file('image')->store('images');
-        }
-
-        $user->update($validated);
-
-        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+        return back()->with('success', 'User updated successfully.');
     }
 
     public function destroy(User $user)

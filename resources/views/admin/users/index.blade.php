@@ -45,6 +45,7 @@
                         <x-admin::table.actions
                             resource="user"
                             :model="$user"
+                            :show-delete="$user->id !== auth()->id()"
                         />
                     </x-admin::table.td>
                 </x-admin::table.tr>

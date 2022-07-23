@@ -10,4 +10,5 @@ enum UserTypeEnum: int
 
     case ADMIN = 1;
     case NORMAL = 2;
+    case EDITOR = 3;
 }

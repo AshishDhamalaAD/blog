@@ -5,11 +5,9 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <x-admin::container>
-            <x-admin::card>
-                You're logged in!
-            </x-admin::card>
-        </x-admin::container>
-    </div>
+    <x-admin::container>
+        <x-admin::card>
+            You're logged in!
+        </x-admin::card>
+    </x-admin::container>
 </x-app-layout>

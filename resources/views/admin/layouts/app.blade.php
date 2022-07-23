@@ -28,7 +28,10 @@
             </header>
 
             <!-- Page Content -->
-            <main>
+            <main class="py-4">
+                <x-admin::flash-message.success :message="session('success')" />
+                <x-admin::flash-message.error :message="session('error')" />
+
                 {{ $slot }}
             </main>
         </div>

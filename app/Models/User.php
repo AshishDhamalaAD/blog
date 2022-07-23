@@ -32,6 +32,13 @@ class User extends Authenticatable
         return Storage::url($this->image);
     }
 
+    public function deleteImage(): void
+    {
+        if ($this->image) {
+            Storage::delete($this->image);
+        }
+    }
+
     public function socialMedia(): BelongsToMany
     {
         return $this->belongsToMany(SocialMedia::class, 'user_social_media', 'user_id', 'social_media_id')

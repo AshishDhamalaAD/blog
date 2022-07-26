@@ -17,11 +17,11 @@ class ArticlesController extends Controller
             'Image',
             'Title',
             'Views',
-            'Status',
             'Created By',
             'Created Date',
             'Published Date',
-            'Is Published?',
+            'Publish Status',
+            'Status',
             'Action',
         ];
         $data['items'] = Article::with(['user:id,name'])->latest()->paginate(10);

@@ -29,12 +29,6 @@
                             {{ $item->views }}
                         </x-admin::table.td>
 
-                        <x-admin::table.td nowrap>
-                            <x-admin::chip :class="$item->status->bgClass()">
-                                {{ $item->status->prettyName() }}
-                            </x-admin::chip>
-                        </x-admin::table.td>
-
                         <x-admin::table.td>
                             {{ $item->user->name }}
                         </x-admin::table.td>
@@ -48,7 +42,15 @@
                         </x-admin::table.td>
 
                         <x-admin::table.td>
-                            <x-admin::chip.yes-no :value="$item->published_at?->isPast()" />
+                            <x-admin::chip :class="$item->publishedStatus->chipClass()">
+                                {{ $item->publishedStatus->prettyName() }}
+                            </x-admin::chip>
+                        </x-admin::table.td>
+
+                        <x-admin::table.td nowrap>
+                            <x-admin::chip :class="$item->status->chipClass()">
+                                {{ $item->status->prettyName() }}
+                            </x-admin::chip>
                         </x-admin::table.td>
 
                         <x-admin::table.td>

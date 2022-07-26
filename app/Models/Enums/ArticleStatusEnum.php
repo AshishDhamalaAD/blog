@@ -11,7 +11,7 @@ enum ArticleStatusEnum: int
     case ACTIVE = 1;
     case IN_ACTIVE = 2;
 
-    public function bgClass(): string
+    public function chipClass(): string
     {
         return match ($this) {
             self::ACTIVE => 'bg-green-600 text-white',

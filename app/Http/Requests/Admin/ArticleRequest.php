@@ -30,8 +30,10 @@ class ArticleRequest extends FormRequest
      */
     public function rules()
     {
+        $model = $this->route('article');
+
         return [
-            'image' => ['bail', 'required', 'image', 'max:1024'],
+            'image' => ['bail', $model ? 'nullable' : 'required', 'image', 'max:1024'],
             'title' => ['bail', 'required', 'string', 'max:255'],
             'description' => ['bail', 'required', 'string', 'min:10'],
             'status' => ['bail', 'required', Rule::in(ArticleStatusEnum::values())],

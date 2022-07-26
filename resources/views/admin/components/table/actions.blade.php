@@ -1,26 +1,23 @@
 @props([
     'resource',
+    'routeResource',
     'model',
     'showEdit' => true,
     'showDelete' => true,
 ])
 
-@php
-    $resources = Str::plural($resource);
-@endphp
-
 <div class="flex items-center space-x-2">
     {{ $left ?? null }}
 
     @if($showEdit)
-        <a href="{{ route("admin.{$resources}.edit", $model) }}">
+        <a href="{{ route("admin.{$routeResource}.edit", $model) }}">
             <x-icons.edit class="w-5 h-5 text-blue-500" />
         </a>
     @endif
 
     @if($showDelete)
         <form
-            action="{{ route("admin.{$resources}.destroy", $model) }}"
+            action="{{ route("admin.{$routeResource}.destroy", $model) }}"
             method="post"
             class="flex"
             x-data="{ resource: '{{ $resource }}' }"

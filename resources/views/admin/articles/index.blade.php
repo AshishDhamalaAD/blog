@@ -6,7 +6,7 @@
     </x-slot>
 
     <x-admin::container>
-        <x-admin::button :href="route('admin.'. $resources .'.create')">
+        <x-admin::button :href="route('admin.'. $routeResource .'.create')">
             Add New
         </x-admin::button>
 
@@ -44,19 +44,20 @@
                         </x-admin::table.td>
 
                         <x-admin::table.td>
-                            {{ $item->published_at->toDayDateTimeString() }}
+                            {{ $item->published_at?->toDayDateTimeString() ?: '-' }}
                         </x-admin::table.td>
 
                         <x-admin::table.td>
-                            <x-admin::chip.yes-no :value="$item->published_at->isPast()" />
+                            <x-admin::chip.yes-no :value="$item->published_at?->isPast()" />
                         </x-admin::table.td>
 
                         <x-admin::table.td>
                             <x-admin::table.actions
+                                :routeResource="$routeResource"
                                 :resource="$resource"
                                 :model="$item"
-                                :show-delete="$item->user_id !== auth()->id()"
-                                :show-edit="$item->user_id !== auth()->id()"
+                                :show-delete="$item->user_id == auth()->id()"
+                                :show-edit="$item->user_id == auth()->id()"
                             />
                         </x-admin::table.td>
                     </x-admin::table.tr>

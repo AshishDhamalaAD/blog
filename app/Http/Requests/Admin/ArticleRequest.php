@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Models\Enums\UserTypeEnum;
 use App\Models\Article;
+use App\Models\Enums\ArticleStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
@@ -29,25 +30,19 @@ class ArticleRequest extends FormRequest
      */
     public function rules()
     {
-        $user = $this->route('article');
-
         return [
-            'image' => ['bail', 'nullable', 'image', 'max:1024'],
-            'name' => ['bail', 'required', 'string', 'max:255'],
-            'email' => ['bail', 'required', 'email', 'max:255', Rule::unique(Article::class)->ignore($user->id ?? null)],
-            'password' => ['bail', $user ? 'nullable' : 'required', 'string', Password::defaults(), 'confirmed'],
+            'image' => ['bail', 'required', 'image', 'max:1024'],
+            'title' => ['bail', 'required', 'string', 'max:255'],
             'description' => ['bail', 'required', 'string', 'min:10'],
-            'type' => ['bail', 'required', Rule::in(UserTypeEnum::values())],
-            'social_media_urls' => ['bail', 'nullable', 'array'],
-            'social_media_urls.*' => ['bail', 'nullable',  'url', 'max:255'],
+            'status' => ['bail', 'required', Rule::in(ArticleStatusEnum::values())],
+            'published_at' => ['bail', 'nullable', 'date_format:Y-m-d H:i'],
         ];
     }
 
     public function createData(): array
     {
-        $data = $this->safe()->except(['social_media_urls']);
-
-        $data['password'] = Hash::make($this->password);
+        $data = $this->safe()->except(['image']);
+        $data['user_id'] = $this->user()->id;
 
         if ($this->image) {
             $data['image'] = $this->file('image')->store('images');
@@ -56,21 +51,12 @@ class ArticleRequest extends FormRequest
         return $data;
     }
 
-    public function socialMediaUrls(): Collection
+    public function updateData(Article $model): array
     {
-        return collect($this->get('social_media_urls', []))
-            ->filter()
-            ->map(fn ($url) => ['url' => $url]);
-    }
-
-    public function updateData(Article $user): array
-    {
-        $data = $this->safe()->except(['social_media_urls']);
-
-        $data['password'] = $this->password ? Hash::make($this->password) : $user->password;
+        $data = $this->safe()->except(['image']);
 
         if ($this->image) {
-            $user->deleteImage();
+            $model->deleteImage();
 
             $data['image'] = $this->file('image')->store('images');
         }

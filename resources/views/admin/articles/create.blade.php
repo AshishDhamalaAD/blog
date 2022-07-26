@@ -1,102 +1,83 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add new User') }}
+            {{ $title }}
         </h2>
     </x-slot>
 
     <x-admin::container>
         <x-admin::card class="mt-4">
             <form
-                action="{{ $user->exists ? route('admin.users.update', $user) : route('admin.users.store') }}"
+                action="{{ $model->exists ? route('admin.' . $routeResource . '.update', $model) : route('admin.' . $routeResource . '.store') }}"
                 method="post"
                 enctype="multipart/form-data"
             >
                 @csrf
-                @if($user->exists)
+                @if($model->exists)
                     @method('PUT')
                 @endif
 
                 <div class="grid grid-cols-2 gap-6">
                     <div class="col-span-2">
-                        @if($user->image)
+                        @if($model->image)
                         <div class="text-center">
                             <img
-                                src="{{ $user->imageUrl() }}"
+                                src="{{ $model->imageUrl() }}"
                                 class="w-32 h-32 mx-auto object-cover"
                             >
-                            <span>Previous Image</span>
+                            <span>Previous Thumbnail</span>
                         </div>
                         @endif
 
                         <x-admin::input-group
                             name="image"
                             type="file"
-                            :label="__('Image')"
+                            :label="__('Thumbnail')"
                         />
                     </div>
 
-                    <x-admin::input-group
-                        name="name"
-                        :label="__('Name')"
-                        :value="$user->name"
-                        required
-                    />
-
-                    <x-admin::input-group
-                        name="email"
-                        type="email"
-                        :label="__('Email')"
-                        :value="$user->email"
-                        required
-                    />
-
-                    <x-admin::input-group
-                        name="password"
-                        type="password"
-                        :label="__('Password')"
-                        :required="!$user->exists"
-                    />
-
-                    <x-admin::input-group
-                        name="password_confirmation"
-                        type="password"
-                        :label="__('Confirm Password')"
-                        :required="!$user->exists"
-                    />
-
-                    <x-admin::select-group
-                        :items="$types"
-                        name="type"
-                        label="User Type"
-                        :value="$user->type->value"
-                    />
-
                     <div class="col-span-2">
-                        <x-admin::textarea-group
-                            :label="__('Description')"
-                            name="description"
-                            :value="$user->description"
+                        <x-admin::input-group
+                            name="title"
+                            :label="__('Title')"
+                            :value="$model->title"
                             required
                         />
                     </div>
 
                     <div class="col-span-2">
-                        <div class="border-b border-blue-700">
-                            <span class="inline-block bg-blue-500 text-white px-4 py-2">Social Media</span>
-                        </div>
+                        <x-admin::textarea-group
+                            :label="__('Description')"
+                            name="description"
+                            :value="$model->description"
+                            required
+                        />
+                    </div>
 
-                        <div class="space-y-6 mt-4">
-                            @foreach ($socialMedia as $social)
-                                <x-admin::input-group
-                                    :id="'social-media-'.$social->id"
-                                    :name="'social_media_urls['.$social->id.']'"
-                                    type="url"
-                                    :label="$social->name"
-                                    :value="$social->url"
-                                />
-                            @endforeach
-                        </div>
+                    <x-admin::select-group
+                        :items="$statuses"
+                        name="status"
+                        label="Status"
+                        :value="$model->status->value"
+                    />
+
+                    <div>
+                        <x-admin::label
+                            :value="__('Published At')"
+                            class="mb-1"
+                        />
+
+                        <x-flatpickr
+                            name="published_at"
+                            :min-date="$model->published_at ?? today()"
+                            show-time
+                            :value="old('published_at', $model->published_at)"
+                            :disabled="$model->published_at?->isPast()"
+                        />
+
+                        @error('published_at')
+                            <span class="text-red-500 mt-1">*{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="col-span-2">

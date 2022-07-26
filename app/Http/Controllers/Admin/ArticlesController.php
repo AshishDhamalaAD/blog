@@ -26,7 +26,7 @@ class ArticlesController extends Controller
         ];
         $data['items'] = Article::with(['user:id,name'])->latest()->paginate(10);
         $data['resource'] = 'article';
-        $data['resources'] = 'articles';
+        $data['routeResource'] = 'articles';
         $data['title'] = 'Articles';
 
         return view('admin.articles.index', $data);
@@ -34,8 +34,10 @@ class ArticlesController extends Controller
 
     public function create(Request $request)
     {
+        $data['title'] = __('Add new Article');
+        $data['routeResource'] = 'articles';
         $data['statuses'] = ArticleStatusEnum::cases();
-        $data['article'] = new Article([
+        $data['model'] = new Article([
             'status' => ArticleStatusEnum::ACTIVE,
         ]);
 
@@ -51,8 +53,10 @@ class ArticlesController extends Controller
 
     public function edit(Request $request, Article $article)
     {
+        $data['title'] = __('Edit Article');
+        $data['routeResource'] = 'articles';
         $data['statuses'] = ArticleStatusEnum::cases();
-        $data['article'] = $article;
+        $data['model'] = $article;
 
         return view('admin.articles.create', $data);
     }

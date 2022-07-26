@@ -4,6 +4,7 @@
 'name',
 'label' => '',
 'type' => 'text',
+'value' => null,
 ])
 
 @php
@@ -23,7 +24,7 @@ $id = $id ?? $name;
         :id="$id"
         :type="$type"
         :name="$name"
-        :value="old($name)"
+        :value="old($name, $value)"
         :disabled="$disabled"
         {{$attributes}}
     />

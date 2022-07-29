@@ -58,6 +58,8 @@ class ArticlesController extends Controller
 
     public function edit(Request $request, Article $article)
     {
+        $this->authorize('update', $article);
+
         $data['title'] = __('Edit Article');
         $data['routeResource'] = 'articles';
         $data['statuses'] = ArticleStatusEnum::cases();
@@ -70,6 +72,8 @@ class ArticlesController extends Controller
 
     public function update(ArticleRequest $request, Article $article)
     {
+        $this->authorize('update', $article);
+
         $article->update($request->updateData($article));
 
         $article->tags()->sync($request->tag_ids);
@@ -79,6 +83,8 @@ class ArticlesController extends Controller
 
     public function destroy(Article $article)
     {
+        $this->authorize('delete', $article);
+
         $article->deleteImage();
 
         $article->delete();

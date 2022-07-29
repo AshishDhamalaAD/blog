@@ -58,8 +58,8 @@
                                 :routeResource="$routeResource"
                                 :resource="$resource"
                                 :model="$item"
-                                :show-delete="$item->user_id == auth()->id()"
-                                :show-edit="$item->user_id == auth()->id()"
+                                :show-delete="auth()->user()->can('delete', $item)"
+                                :show-edit="auth()->user()->can('update', $item)"
                             />
                         </x-admin::table.td>
                     </x-admin::table.tr>

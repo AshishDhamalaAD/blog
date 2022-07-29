@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Enums\UserTypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -36,6 +38,12 @@ class AppServiceProvider extends ServiceProvider
             return $this->app->isProduction()
                 ? $rule->mixedCase()->uncompromised()
                 : $rule;
+        });
+
+        Gate::before(function ($user, $ability) {
+            if ($user->type == UserTypeEnum::ADMIN) {
+                return true;
+            }
         });
     }
 }

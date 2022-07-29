@@ -68,4 +68,11 @@ class ArticleRequest extends FormRequest
 
         return $data;
     }
+
+    public function messages()
+    {
+        return [
+            'tag_ids.required' => 'The tags field is required.'
+        ];
+    }
 }

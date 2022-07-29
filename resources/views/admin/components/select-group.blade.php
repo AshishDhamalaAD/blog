@@ -41,7 +41,7 @@ $id = $id ?? $name;
         @endforeach
     </select>
 
-    @error($name)
+    @error(Str::replace('[]', '', $name))
         <span class="text-red-500 mt-1">*{{ $message }}</span>
     @enderror
 </div>

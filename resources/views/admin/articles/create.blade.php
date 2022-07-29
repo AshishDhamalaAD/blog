@@ -54,6 +54,18 @@
                         />
                     </div>
 
+                    <div class="col-span-2">
+                        <x-admin::select-group
+                            :items="$tags"
+                            id="tag-ids"
+                            name="tag_ids[]"
+                            label="Tags"
+                            :value="$model->tag_ids"
+                            multiple
+                            hide-select
+                        />
+                    </div>
+
                     <x-admin::select-group
                         :items="$statuses"
                         name="status"
@@ -88,4 +100,18 @@
             </form>
         </x-admin::card>
     </x-admin::container>
+
+    @push('style')
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.css"> 
+    @endpush
+
+    @push('script')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.js"></script>
+
+        <script>
+            new SlimSelect({
+                select: '#tag-ids'
+            })
+        </script>
+    @endpush
 </x-app-layout>

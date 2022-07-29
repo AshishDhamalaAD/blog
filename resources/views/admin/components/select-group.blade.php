@@ -4,6 +4,8 @@
 'name',
 'label' => '',
 'value' => null,
+'multiple' => false,
+'hideSelect' => false,
 ])
 
 @php
@@ -23,12 +25,16 @@ $id = $id ?? $name;
         name="{{ $name }}"
         id="{{ $id }}"
         {{ $attributes->class(['rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block w-full']) }}
+        {{ $multiple ? 'multiple' : null }}
     >
-        <option value="">Select</option>
+        @if(!$hideSelect)
+            <option value="">Select</option>
+        @endif
         @foreach ($items as $item)
             <option
                 value="{{ $item->value }}"
-                @if($item->value == old($name, $value)) selected @endif
+                @if(!$multiple && $item->value == old($name, $value)) selected @endif
+                @if($multiple && in_array($item->value, old($name, $value))) selected @endif
             >
                 {{ $item->name }}
             </option>

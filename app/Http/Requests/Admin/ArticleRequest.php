@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin;
 use App\Models\Enums\UserTypeEnum;
 use App\Models\Article;
 use App\Models\Enums\ArticleStatusEnum;
+use App\Models\Tag;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
@@ -38,12 +39,14 @@ class ArticleRequest extends FormRequest
             'description' => ['bail', 'required', 'string', 'min:10'],
             'status' => ['bail', 'required', Rule::in(ArticleStatusEnum::values())],
             'published_at' => ['bail', 'nullable', 'date_format:Y-m-d H:i'],
+            'tag_ids' => ['required', 'array'],
+            'tag_ids.*' => ['integer', Rule::exists(Tag::class, 'id')],
         ];
     }
 
     public function createData(): array
     {
-        $data = $this->safe()->except(['image']);
+        $data = $this->safe()->except(['image', 'tag_ids']);
         $data['user_id'] = $this->user()->id;
 
         if ($this->image) {
@@ -55,7 +58,7 @@ class ArticleRequest extends FormRequest
 
     public function updateData(Article $model): array
     {
-        $data = $this->safe()->except(['image']);
+        $data = $this->safe()->except(['image', 'tag_ids']);
 
         if ($this->image) {
             $model->deleteImage();

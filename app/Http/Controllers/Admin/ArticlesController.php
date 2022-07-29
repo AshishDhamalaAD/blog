@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ArticleRequest;
 use App\Models\Article;
 use App\Models\Enums\ArticleStatusEnum;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -37,8 +38,10 @@ class ArticlesController extends Controller
         $data['title'] = __('Add new Article');
         $data['routeResource'] = 'articles';
         $data['statuses'] = ArticleStatusEnum::cases();
+        $data['tags'] = Tag::select(['id as value', 'name'])->get();
         $data['model'] = new Article([
             'status' => ArticleStatusEnum::ACTIVE,
+            'tag_ids' => [],
         ]);
 
         return view('admin.articles.create', $data);
@@ -48,6 +51,8 @@ class ArticlesController extends Controller
     {
         $article = Article::create($request->createData());
 
+        $article->tags()->attach($request->tag_ids);
+
         return redirect()->route('admin.articles.index')->with('success', 'Article created successfully.');
     }
 
@@ -56,6 +61,8 @@ class ArticlesController extends Controller
         $data['title'] = __('Edit Article');
         $data['routeResource'] = 'articles';
         $data['statuses'] = ArticleStatusEnum::cases();
+        $data['tags'] = Tag::select(['id as value', 'name'])->get();
+        $article->tag_ids = $article->tags()->pluck('tags.id')->toArray();
         $data['model'] = $article;
 
         return view('admin.articles.create', $data);
@@ -64,6 +71,8 @@ class ArticlesController extends Controller
     public function update(ArticleRequest $request, Article $article)
     {
         $article->update($request->updateData($article));
+
+        $article->tags()->sync($request->tag_ids);
 
         return back()->with('success', 'Article updated successfully.');
     }

@@ -12,12 +12,12 @@
 
         <x-admin::card class="mt-4">
             <x-admin::table :headers="$headers">
-                @foreach ($users as $user)
+                @foreach ($items as $item)
                 <x-admin::table.tr>
                     <x-admin::table.td>
-                        @if($user->image)
+                        @if($item->image)
                         <img
-                            src="{{ $user->imageUrl() }}"
+                            src="{{ $item->imageUrl() }}"
                             class="w-16 h-16 object-cover"
                         >
                         @else
@@ -26,35 +26,37 @@
                     </x-admin::table.td>
 
                     <x-admin::table.td>
-                        {{ $user->name }}
+                        {{ $item->name }}
                     </x-admin::table.td>
 
                     <x-admin::table.td>
-                        {{ $user->email }}
+                        {{ $item->email }}
                     </x-admin::table.td>
 
                     <x-admin::table.td>
-                        {{ $user->type->name }}
+                        {{ $item->type->name }}
                     </x-admin::table.td>
 
                     <x-admin::table.td>
-                        {{ $user->created_at->toDayDateTimeString() }}
+                        {{ $item->created_at->toDayDateTimeString() }}
                     </x-admin::table.td>
 
                     <x-admin::table.td>
                         <x-admin::table.actions
-                            resource="user"
-                            :model="$user"
-                            :show-delete="$user->id !== auth()->id()"
+                            :routeResource="$routeResource"
+                            :resource="$resource"
+                            :model="$item"
+                            :show-edit="!$item->isAdmin() && $item->id !== auth()->id()"
+                            :show-delete="!$item->isAdmin() && $item->id !== auth()->id()"
                         />
                     </x-admin::table.td>
                 </x-admin::table.tr>
                 @endforeach
             </x-admin::table>
 
-            @if($users->hasPages())
+            @if($items->hasPages())
                 <div class="mt-4">
-                    {{ $users->links() }}
+                    {{ $items->links() }}
                 </div>
             @endif
         </x-admin::card>

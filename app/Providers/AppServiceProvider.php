@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::before(function ($user, $ability) {
-            if ($user->type == UserTypeEnum::ADMIN) {
+            if ($user->isAdmin()) {
                 return true;
             }
         });

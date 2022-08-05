@@ -8,14 +8,12 @@ use App\Models\Enums\UserTypeEnum;
 use App\Models\SocialMedia;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 
 class UsersController extends Controller
 {
+    private string $resource = 'user';
+    private string $routeResource = 'users';
+
     public function index(Request $request)
     {
         $data['headers'] = [
@@ -26,13 +24,18 @@ class UsersController extends Controller
             'Created At',
             'Action',
         ];
-        $data['users'] = User::latest()->paginate(10);
+        $data['items'] = User::latest()->paginate(10);
+        $data['resource'] = $this->resource;
+        $data['routeResource'] = $this->routeResource;
+        $data['title'] = __('Users');
 
         return view('admin.users.index', $data);
     }
 
     public function create(Request $request)
     {
+        $data['title'] = __('Add new User');
+        $data['routeResource'] = $this->routeResource;
         $data['types'] = UserTypeEnum::cases();
         $data['socialMedia'] = SocialMedia::select(['id', 'name'])->get();
         $data['user'] = new User([
@@ -55,7 +58,10 @@ class UsersController extends Controller
 
     public function edit(Request $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $data['types'] = UserTypeEnum::cases();
+        $data['routeResource'] = $this->routeResource;
         $data['user'] = $user->load(['socialMedia']);
         $data['socialMedia'] = SocialMedia::select(['id', 'name'])
             ->get()
@@ -70,6 +76,8 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $user->update($request->updateData($user));
 
         $user->socialMedia()->sync($request->socialMediaUrls());
@@ -79,6 +87,8 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
+        $this->authorize('delete', $user);
+
         $user->deleteImage();
 
         $user->delete();

@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 
 class ArticlesController extends Controller
 {
+    private string $resource = 'article';
+    private string $routeResource = 'articles';
+
     public function index(Request $request)
     {
         $data['headers'] = [
@@ -26,9 +29,9 @@ class ArticlesController extends Controller
             'Action',
         ];
         $data['items'] = Article::with(['user:id,name'])->latest()->paginate(10);
-        $data['resource'] = 'article';
-        $data['routeResource'] = 'articles';
-        $data['title'] = 'Articles';
+        $data['resource'] = $this->resource;
+        $data['routeResource'] = $this->routeResource;
+        $data['title'] = __('Articles');
 
         return view('admin.articles.index', $data);
     }
@@ -36,7 +39,7 @@ class ArticlesController extends Controller
     public function create(Request $request)
     {
         $data['title'] = __('Add new Article');
-        $data['routeResource'] = 'articles';
+        $data['routeResource'] = $this->routeResource;
         $data['statuses'] = ArticleStatusEnum::cases();
         $data['tags'] = Tag::select(['id as value', 'name'])->get();
         $data['model'] = new Article([
@@ -61,7 +64,7 @@ class ArticlesController extends Controller
         $this->authorize('update', $article);
 
         $data['title'] = __('Edit Article');
-        $data['routeResource'] = 'articles';
+        $data['routeResource'] = $this->routeResource;
         $data['statuses'] = ArticleStatusEnum::cases();
         $data['tags'] = Tag::select(['id as value', 'name'])->get();
         $article->tag_ids = $article->tags()->pluck('tags.id')->toArray();

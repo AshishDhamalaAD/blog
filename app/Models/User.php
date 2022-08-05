@@ -39,6 +39,11 @@ class User extends Authenticatable
         }
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->type === UserTypeEnum::ADMIN;
+    }
+
     public function socialMedia(): BelongsToMany
     {
         return $this->belongsToMany(SocialMedia::class, 'user_social_media', 'user_id', 'social_media_id')

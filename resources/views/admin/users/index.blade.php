@@ -46,8 +46,8 @@
                             :routeResource="$routeResource"
                             :resource="$resource"
                             :model="$item"
-                            :show-edit="!$item->isAdmin() && $item->id !== auth()->id()"
-                            :show-delete="!$item->isAdmin() && $item->id !== auth()->id()"
+                            :show-edit="auth()->user()->can('update', $item)"
+                            :show-delete="auth()->user()->can('delete', $item)"
                         />
                     </x-admin::table.td>
                 </x-admin::table.tr>

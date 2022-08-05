@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
                 : $rule;
         });
 
-        Gate::before(function ($user, $ability) {
+        Gate::after(function ($user, $ability) {
             if ($user->isAdmin()) {
                 return true;
             }

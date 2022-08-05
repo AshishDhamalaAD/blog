@@ -11,11 +11,23 @@ class UserPolicy
 
     public function update(User $authUser, User $user)
     {
-        return $user->isAdmin() && $authUser->id !== $user->id;
+        if ($user->isAdmin()) {
+            return false;
+        }
+
+        if ($authUser->is($user)) {
+            return false;
+        }
     }
 
     public function delete(User $authUser, User $user)
     {
-        return $user->isAdmin() && $authUser->id !== $user->id;
+        if ($user->isAdmin()) {
+            return false;
+        }
+
+        if ($authUser->is($user)) {
+            return false;
+        }
     }
 }

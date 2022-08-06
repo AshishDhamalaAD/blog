@@ -6,7 +6,7 @@
     </x-slot>
 
     <x-admin::container>
-        <x-admin::button :href="route('admin.'. $routeResource .'.create')">
+        <x-admin::button :href="route('admin.'. $routeResource .'.create', ['parent_id' => $parentMenu->id])">
             Add New
         </x-admin::button>
 
@@ -15,22 +15,21 @@
                 @foreach ($items as $item)
                     <x-admin::table.tr>
                         <x-admin::table.td>
-                            {{ $item->name }}
-                            @if ($item->children_count > 0)
-                                ({{ $item->children_count }})
+                            @if($parentMenu->type->isArticle())
+                                {{ $item->article->title }}
+                            @endif
+                            @if($parentMenu->type->isBasic())
+                                {{ $item->name }}
                             @endif
                         </x-admin::table.td>
 
                         <x-admin::table.td>
-                            {{ $item->type?->prettyName() ?? '-' }}
-                        </x-admin::table.td>
-
-                        <x-admin::table.td>
-                            {{ $item->layout?->prettyName() ?? '-' }}
-                        </x-admin::table.td>
-
-                        <x-admin::table.td>
-                            {{ $item->url ?? '-' }}
+                            @if($parentMenu->type->isArticle())
+                                {{ route('articles.show', $item->article->slug) }}
+                            @endif
+                            @if($parentMenu->type->isBasic())
+                                {{ $item->url }}
+                            @endif
                         </x-admin::table.td>
 
                         <x-admin::table.td>
@@ -44,15 +43,7 @@
                                 :model="$item"
                                 :show-delete="auth()->user()->can('delete', $item)"
                                 :show-edit="auth()->user()->can('update', $item)"
-                            >
-                                @if($item->layout !== null)
-                                    <x-slot name="right">
-                                        <a href="{{ route('admin.sub-menus.index', ['parent_id' => $item->id]) }}">
-                                            <x-icons.eye class="w-5 h-5 text-green-500" />
-                                        </a>
-                                    </x-slot>
-                                @endif
-                            </x-admin::table.actions>
+                                :edit-params="['parent_id' => $parentMenu->id]" />
                         </x-admin::table.td>
                     </x-admin::table.tr>
                 @endforeach

@@ -6,6 +6,10 @@ input:disabled {
     @apply bg-gray-100 cursor-not-allowed;
 }
 
+[readonly] {
+    @apply bg-gray-100 pointer-events-none;
+}
+
 input.flatpickr-input {
     @apply rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block w-full;
 }

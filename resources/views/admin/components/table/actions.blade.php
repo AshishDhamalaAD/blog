@@ -4,13 +4,14 @@
     'model',
     'showEdit' => true,
     'showDelete' => true,
+    'editParams' => [],
 ])
 
 <div class="flex items-center space-x-2">
     {{ $left ?? null }}
 
     @if($showEdit)
-        <a href="{{ route("admin.{$routeResource}.edit", $model) }}">
+        <a href="{{ route("admin.{$routeResource}.edit", array_merge([$model], $editParams)) }}">
             <x-icons.edit class="w-5 h-5 text-blue-500" />
         </a>
     @endif

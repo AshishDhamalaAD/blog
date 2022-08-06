@@ -19,20 +19,13 @@ class MenusController extends Controller
     {
         $data['headers'] = [
             'Name',
-            'Parent',
             'Layout',
             'Type',
-            'Related To Article',
             'Url',
             'Created Date',
             'Action',
         ];
-        $data['items'] = Menu::with([
-            'parent:id,parent_id,name',
-            'article:id,title,slug',
-        ])
-            ->latest()
-            ->paginate(10);
+        $data['items'] = Menu::withCount(['children'])->whereNull('parent_id')->paginate(10);
         $data['resource'] = $this->resource;
         $data['routeResource'] = $this->routeResource;
         $data['title'] = __('Menus');
@@ -48,16 +41,14 @@ class MenusController extends Controller
         $data['types'] = MenuTypeEnum::cases();
         $data['rootMenus'] = Menu::whereNull('parent_id')->get(['id as value', 'name']);
         $data['articles'] = Article::latest('id')->get(['id as value', 'title as name']);
-        $data['model'] = new Menu([
-            'layout' => MenuLayoutEnum::LIST,
-            'type' => MenuTypeEnum::BASIC,
-        ]);
+        $data['model'] = new Menu();
 
         return view('admin.menus.create', $data);
     }
 
     public function store(MenuRequest $request)
     {
+        // dd($request->safe()->toArray());
         $menu = Menu::create($request->safe()->toArray());
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu created successfully.');
@@ -80,6 +71,7 @@ class MenusController extends Controller
 
     public function update(MenuRequest $request, Menu $menu)
     {
+        // dd($request->safe()->toArray());
         $this->authorize('update', $menu);
 
         $menu->update($request->safe()->toArray());

@@ -44,4 +44,6 @@ $id = $id ?? $name;
     @error(Str::replace('[]', '', $name))
         <span class="text-red-500 mt-1">*{{ $message }}</span>
     @enderror
+
+    {{ $bottom ?? null }}
 </div>

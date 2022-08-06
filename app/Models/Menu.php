@@ -18,6 +18,11 @@ class Menu extends Model
         'layout' => MenuLayoutEnum::class,
     ];
 
+    public function isRelatedToArticle(): bool
+    {
+        return $this->article_id !== null;
+    }
+
     public function children(): HasMany
     {
         return $this->hasMany(Menu::class, 'parent_id');
@@ -26,5 +31,10 @@ class Menu extends Model
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Menu::class, 'parent_id');
+    }
+
+    public function article(): BelongsTo
+    {
+        return $this->belongsTo(Article::class, 'article_id');
     }
 }

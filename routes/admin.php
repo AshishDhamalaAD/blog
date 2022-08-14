@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdvertisementsController;
 use App\Http\Controllers\Admin\ArticlesController;
 use App\Http\Controllers\Admin\SubMenusController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -15,6 +16,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('articles', ArticlesController::class);
     Route::resource('menus', MenusController::class);
     Route::resource('sub-menus', SubMenusController::class);
+    Route::resource('advertisements', AdvertisementsController::class);
 });
 
 

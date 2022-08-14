@@ -23,7 +23,7 @@
                         <div class="text-center">
                             <img
                                 src="{{ $model->imageUrl() }}"
-                                class="w-32 h-32 mx-auto object-cover"
+                                class="w-48 h-32 mx-auto object-contain"
                             >
                             <span>Previous Thumbnail</span>
                         </div>

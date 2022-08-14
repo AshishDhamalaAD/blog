@@ -41,7 +41,7 @@ class ArticlesController extends Controller
         $data['title'] = __('Add new Article');
         $data['routeResource'] = $this->routeResource;
         $data['statuses'] = ArticleStatusEnum::cases();
-        $data['tags'] = Tag::select(['id as value', 'name'])->get();
+        $data['tags'] = Tag::select(['id', 'name'])->get();
         $data['model'] = new Article([
             'status' => ArticleStatusEnum::ACTIVE,
             'tag_ids' => [],
@@ -66,7 +66,7 @@ class ArticlesController extends Controller
         $data['title'] = __('Edit Article');
         $data['routeResource'] = $this->routeResource;
         $data['statuses'] = ArticleStatusEnum::cases();
-        $data['tags'] = Tag::select(['id as value', 'name'])->get();
+        $data['tags'] = Tag::select(['id', 'name'])->get();
         $article->tag_ids = $article->tags()->pluck('tags.id')->toArray();
         $data['model'] = $article;
 

@@ -32,11 +32,11 @@ $id = $id ?? $name;
         @endif
         @foreach ($items as $item)
             <option
-                value="{{ $item->value }}"
-                @if(!$multiple && $item->value == old($name, $value)) selected @endif
-                @if($multiple && in_array($item->value, old($name, $value))) selected @endif
+                value="{{ $item->dropdownValue() }}"
+                @if(!$multiple && $item->dropdownValue() == old($name, $value)) selected @endif
+                @if($multiple && in_array($item->dropdownValue(), old($name, $value))) selected @endif
             >
-                {{ $item->name }}
+                {{ $item->dropdownText() }}
             </option>
         @endforeach
     </select>

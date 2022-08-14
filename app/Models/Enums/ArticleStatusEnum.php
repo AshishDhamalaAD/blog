@@ -2,11 +2,14 @@
 
 namespace App\Models\Enums;
 
+use App\Contracts\DorpdownableContract;
+use App\Traits\EnumDropdownable;
 use App\Traits\EnumValues;
 
-enum ArticleStatusEnum: int
+enum ArticleStatusEnum: int implements DorpdownableContract
 {
     use EnumValues;
+    use EnumDropdownable;
 
     case ACTIVE = 1;
     case IN_ACTIVE = 2;

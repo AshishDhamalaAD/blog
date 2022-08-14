@@ -88,7 +88,7 @@
                         return null;
                     }
 
-                    return this.articles.find(a => a.value == this.articleId);
+                    return this.articles.find(a => a.id == this.articleId);
                 },
             }
         }

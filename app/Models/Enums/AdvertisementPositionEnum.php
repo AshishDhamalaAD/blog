@@ -2,11 +2,14 @@
 
 namespace App\Models\Enums;
 
+use App\Contracts\DorpdownableContract;
+use App\Traits\EnumDropdownable;
 use App\Traits\EnumValues;
 
-enum AdvertisementPositionEnum: int
+enum AdvertisementPositionEnum: int implements DorpdownableContract
 {
     use EnumValues;
+    use EnumDropdownable;
 
     case ARTICLE_TOP = 1;
     case ARTICLE_BOTTOM = 2;

@@ -2,11 +2,14 @@
 
 namespace App\Models\Enums;
 
+use App\Contracts\DorpdownableContract;
+use App\Traits\EnumDropdownable;
 use App\Traits\EnumValues;
 
-enum MenuTypeEnum: int
+enum MenuTypeEnum: int implements DorpdownableContract
 {
     use EnumValues;
+    use EnumDropdownable;
 
     case BASIC = 1;
     case ARTICLE = 2;

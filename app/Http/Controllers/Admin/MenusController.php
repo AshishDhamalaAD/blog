@@ -39,8 +39,6 @@ class MenusController extends Controller
         $data['routeResource'] = $this->routeResource;
         $data['layouts'] = MenuLayoutEnum::cases();
         $data['types'] = MenuTypeEnum::cases();
-        $data['rootMenus'] = Menu::whereNull('parent_id')->get(['id as value', 'name']);
-        $data['articles'] = Article::latest('id')->get(['id as value', 'title as name']);
         $data['model'] = new Menu();
 
         return view('admin.menus.create', $data);
@@ -62,8 +60,6 @@ class MenusController extends Controller
         $data['routeResource'] = $this->routeResource;
         $data['layouts'] = MenuLayoutEnum::cases();
         $data['types'] = MenuTypeEnum::cases();
-        $data['rootMenus'] = Menu::whereNull('parent_id')->where('id', '!=', $menu->id)->get(['id as value', 'name']);
-        $data['articles'] = Article::latest('id')->get(['id as value', 'title as name']);
         $data['model'] = $menu;
 
         return view('admin.menus.create', $data);

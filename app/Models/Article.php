@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Contracts\DorpdownableContract;
 use App\Models\Enums\ArticlePublishedStatusEnum;
 use App\Models\Enums\ArticleStatusEnum;
 use App\Traits\Imageable;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Article extends Model
+class Article extends Model implements DorpdownableContract
 {
     use HasFactory;
     use HasSlug;
@@ -62,6 +63,16 @@ class Article extends Model
     public function isDraft(): bool
     {
         return $this->published_at?->isFuture() === null;
+    }
+
+    public function dropdownText(): string
+    {
+        return $this->title;
+    }
+
+    public function dropdownValue(): string|int
+    {
+        return $this->id;
     }
 
     public function user(): BelongsTo

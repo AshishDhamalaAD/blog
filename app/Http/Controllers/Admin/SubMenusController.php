@@ -40,7 +40,7 @@ class SubMenusController extends Controller
         $data['title'] = __('Add new Sub-Menu on ') . $parentMenu->name;
         $data['routeResource'] = $this->routeResource;
         $data['articles'] = Article::latest('id')
-            ->get(['id as value', 'title as name', 'slug'])
+            ->get(['id', 'title', 'slug'])
             ->map(function ($article) {
                 $article->url = route('articles.show', $article->slug);
 
@@ -68,7 +68,7 @@ class SubMenusController extends Controller
         $data['title'] = __('Edit Sub-Menu of ') . $parentMenu->name;
         $data['routeResource'] = $this->routeResource;
         $data['articles'] = Article::latest('id')
-            ->get(['id as value', 'title as name', 'slug'])
+            ->get(['id', 'title', 'slug'])
             ->map(function ($article) {
                 $article->url = route('articles.show', $article->slug);
 

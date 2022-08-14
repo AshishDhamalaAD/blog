@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Enums\AdvertisementPositionEnum;
 use App\Models\Enums\AdvertisementStatusEnum;
-use App\Models\Enums\Traits\Imageable;
+use App\Traits\Imageable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

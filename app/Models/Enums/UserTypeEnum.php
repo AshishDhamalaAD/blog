@@ -2,7 +2,7 @@
 
 namespace App\Models\Enums;
 
-use App\Models\Enums\Traits\EnumValues;
+use App\Traits\EnumValues;
 
 enum UserTypeEnum: int
 {

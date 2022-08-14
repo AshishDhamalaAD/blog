@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Enums\ArticlePublishedStatusEnum;
 use App\Models\Enums\ArticleStatusEnum;
-use App\Models\Enums\Traits\Imageable;
+use App\Traits\Imageable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

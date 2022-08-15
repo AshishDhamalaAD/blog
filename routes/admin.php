@@ -17,6 +17,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('menus', MenusController::class);
     Route::resource('sub-menus', SubMenusController::class);
     Route::resource('advertisements', AdvertisementsController::class);
+
+    Route::prefix('laravel-filemanager')->group(function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
 });
 
 

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Stevebauman\Purify\Facades\Purify;
 
 class Article extends Model implements DorpdownableContract
 {
@@ -24,6 +25,13 @@ class Article extends Model implements DorpdownableContract
         'status' => ArticleStatusEnum::class,
         'published_at' => 'datetime',
     ];
+
+    public function description(): Attribute
+    {
+        return new Attribute(function ($description) {
+            return Purify::clean($description);
+        });
+    }
 
     public function publishedStatus(): Attribute
     {

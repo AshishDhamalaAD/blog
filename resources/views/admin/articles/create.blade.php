@@ -49,6 +49,7 @@
                         <x-admin::textarea-group
                             :label="__('Description')"
                             name="description"
+                            id="description"
                             :value="$model->description"
                             required
                         />
@@ -106,12 +107,14 @@
     @endpush
 
     @push('script')
+        <x-admin::tinymce-config id="description" category="article" />
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.js"></script>
 
         <script>
             new SlimSelect({
                 select: '#tag-ids'
-            })
+            });
         </script>
     @endpush
 </x-app-layout>

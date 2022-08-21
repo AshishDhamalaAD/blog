@@ -63,21 +63,7 @@ return [
             ],
         ],
         'image' => [
-            'folder_name'  => 'images',
-            'startup_view' => 'grid',
-            'max_size'     => 2000, // size in KB
-            'thumb' => true,
-            'thumb_width' => 80,
-            'thumb_height' => 80,
-            'valid_mime'   => [
-                'image/jpeg',
-                'image/pjpeg',
-                'image/png',
-                'image/gif',
-            ],
-        ],
-        'article' => [
-            'folder_name'  => 'images/article',
+            'folder_name'  => 'photos',
             'startup_view' => 'grid',
             'max_size'     => 2000, // size in KB
             'thumb' => true,

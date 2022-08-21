@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('admin.advertisements.index')" :active="request()->routeIs('admin.advertisements.*')">
                         {{ __('Advertisement') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.websites.edit')" :active="request()->routeIs('admin.websites.edit')">
+                        {{ __('Settings') }}
+                    </x-nav-link>
                 </div>
             </div>
 

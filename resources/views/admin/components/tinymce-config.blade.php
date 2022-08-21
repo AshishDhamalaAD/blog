@@ -1,6 +1,6 @@
 @props([
 'id' => 'tinymce',
-'category',
+'category' => 'image',
 ])
 
 @once

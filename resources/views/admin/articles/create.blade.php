@@ -107,7 +107,7 @@
     @endpush
 
     @push('script')
-        <x-admin::tinymce-config id="description" category="article" />
+        <x-admin::tinymce-config id="description" />
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.js"></script>
 

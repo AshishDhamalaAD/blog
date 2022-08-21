@@ -40,12 +40,14 @@ class WebsiteRequest extends FormRequest
             'email' => ['bail', 'required', 'email', 'max:255'],
             'address' => ['bail', 'required', 'string', 'max:255'],
             'about' => ['bail', 'required', 'string', 'min:10'],
+            'social_media_urls' => ['bail', 'nullable', 'array'],
+            'social_media_urls.*' => ['bail', 'nullable',  'url', 'max:255'],
         ];
     }
 
     public function updateData(Website $model): array
     {
-        $data = $this->safe()->except(['logo', 'favicon']);
+        $data = $this->safe()->except(['logo', 'favicon', 'social_media_urls']);
 
         if ($this->logo) {
             $model->deleteImage('logo');
@@ -60,5 +62,14 @@ class WebsiteRequest extends FormRequest
         }
 
         return $data;
+    }
+
+    public function socialMediaData(): Collection
+    {
+        return collect($this->get('social_media_urls', []))
+            ->map(fn ($url, $socialMediaId) => [
+                'social_media_id' => $socialMediaId,
+                'url' => $url ?? '',
+            ]);
     }
 }

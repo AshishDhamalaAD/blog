@@ -91,6 +91,10 @@
                     </div>
 
                     <div class="col-span-2">
+                        <x-admin::social-media :items="$socialMedia" />
+                    </div>
+
+                    <div class="col-span-2">
                         <x-admin::button>Submit</x-admin::button>
                     </div>
                 </div>

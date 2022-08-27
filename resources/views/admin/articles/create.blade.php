@@ -85,7 +85,7 @@
                             :min-date="$model->published_at ?? today()"
                             show-time
                             :value="old('published_at', $model->published_at)"
-                            :disabled="$model->isPublished()"
+                            {{-- :disabled="$model->isPublished()" --}}
                         />
 
                         @error('published_at')

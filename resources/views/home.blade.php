@@ -1,3 +1,3 @@
 <x-frontend-layout>
-    <x-article.grids />
+    <x-article.grids :articles="$articles" />
 </x-frontend-layout>

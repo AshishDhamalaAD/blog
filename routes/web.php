@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\ArticleDetailController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\TagArticlesController;
+use App\Http\Controllers\Front\ArticleDetailController;
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\TagArticlesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class);

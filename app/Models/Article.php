@@ -93,4 +93,12 @@ class Article extends Model implements DorpdownableContract
         return $this->belongsToMany(Tag::class, 'article_tags', 'article_id', 'tag_id')
             ->withTimestamps();
     }
+
+    public function scopeVisible($query)
+    {
+        return $query->where('status', ArticleStatusEnum::ACTIVE)
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now())
+            ->latest('published_at');
+    }
 }

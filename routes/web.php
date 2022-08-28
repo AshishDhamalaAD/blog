@@ -6,5 +6,5 @@ use App\Http\Controllers\Front\TagArticlesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class);
-Route::get('articles/{article}', ArticleDetailController::class)->name('articles.show');
-Route::get('tags/{tag}/articles', TagArticlesController::class)->name('tags.articles');
+Route::get('articles/{article:slug}', ArticleDetailController::class)->name('articles.show');
+Route::get('tags/{tag:slug}/articles', TagArticlesController::class)->name('tags.articles');

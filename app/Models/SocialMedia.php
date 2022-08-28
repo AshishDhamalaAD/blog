@@ -12,6 +12,11 @@ class SocialMedia extends Model
 
     public $timestamps = false;
 
+    public function nameLowercase(): string
+    {
+        return strtolower($this->name);
+    }
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_social_media', 'social_media_id', 'user_id')

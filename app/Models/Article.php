@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Stevebauman\Purify\Facades\Purify;
@@ -81,6 +82,11 @@ class Article extends Model implements DorpdownableContract
     public function dropdownValue(): string|int
     {
         return $this->id;
+    }
+
+    public function imageUrl(): string
+    {
+        return Storage::url($this->image);
     }
 
     public function user(): BelongsTo

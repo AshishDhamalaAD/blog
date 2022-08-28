@@ -4,10 +4,10 @@
 
 <a
     {{ $attributes->class(['relative w-full h-[400px] overflow-hidden block']) }}
-    href="{{ route('articles.show', $article->slug) }}"
+    href="{{ route('articles.show', $article) }}"
 >
     <img
-        src="{{ Storage::url($article->image) }}"
+        src="{{ $article->imageUrl() }}"
         alt="blog title"
         class="w-full h-full object-cover transition-transform hover:scale-110 duration-500"
     >

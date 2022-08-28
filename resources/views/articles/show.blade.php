@@ -1,64 +1,59 @@
 <x-frontend-layout>
     <div>
-        {{-- advertisement --}}
         <div class="mb-4">
-            <img
-                src="https://2.bp.blogspot.com/-vkooCNOHzKw/WqbQQk7MDtI/AAAAAAAABI4/bRC-UVtU5A0YAWewTLql3H2zUGBhc8uewCLcBGAs/s1600/728-1.jpg"
-                alt="advertisement"
-                class="w-full"
-            >
+            <h1 class="font-extrabold text-2xl">{{ $article->title }}</h1>
+            <div class="text-sm text-gray-500">
+                {{ $article->published_at->format('jS M, Y h:m a') }}
+            </div>
         </div>
 
+        {{-- advertisement --}}
+        @if($topAd)
+            <div class="mb-4">
+                <img
+                    src="{{ $topAd->imageUrl() }}"
+                    alt="advertisement"
+                    class="w-full"
+                >
+            </div>
+        @endif
+
         <img
-            src="https://4.bp.blogspot.com/-TDoUeEz_iGI/Wf8eItNC3aI/AAAAAAAAA6U/CM2Ztmr-czQOjoeivWCL60hGNfiRtNSPgCLcBGAs/s1600/pexels-photo-532571.jpeg"
+            src="{{ $article->imageUrl() }}"
             alt="article title"
             class="w-full"
         >
 
         <div class="mt-8">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure</p>
-
-            <p class="mt-4">dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing
-                elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            {!! $article->description !!}
         </div>
 
         {{-- advertisement --}}
-        <div class="my-4">
-            <img
-                src="https://2.bp.blogspot.com/-vkooCNOHzKw/WqbQQk7MDtI/AAAAAAAABI4/bRC-UVtU5A0YAWewTLql3H2zUGBhc8uewCLcBGAs/s1600/728-1.jpg"
-                alt="advertisement"
-                class="w-full"
-            >
-        </div>
+        @if($bottomAd)
+            <div class="mt-4">
+                <img
+                    src="{{ $bottomAd->imageUrl() }}"
+                    alt="advertisement"
+                    class="w-full"
+                >
+            </div>
+        @endif
 
         {{-- tags --}}
-        <div class="flex items-center space-x-2">
-            <span>Tags:</span>
-            <a
-                href="#"
-                class="italic underline"
-            >tag 1,</a>
-            <a
-                href="#"
-                class="italic underline"
-            >tag 2,</a>
-            <a
-                href="#"
-                class="italic underline"
-            >tag 3,</a>
-        </div>
+        @if($article->tags->isNotEmpty())
+            <div class="mt-4 flex items-center space-x-2">
+                <strong>Tags:</strong>
+                @foreach ($article->tags as $tag)
+                    <a
+                        href="{{ route('tags.articles', $tag) }}"
+                        class="italic underline"
+                    >
+                        {{ $tag->name }}
+                    </a>
+                    @if(!$loop->last),@endif
+                @endforeach
+            </div>
+        @endif
 
         {{-- share --}}
         <div class="mt-8 flex items-center space-x-2">
@@ -75,45 +70,32 @@
         <div class="border border-gray-100 mt-8"></div>
 
         {{-- user info --}}
-
         <div class="mt-8">
             <div class="grid grid-cols-12 gap-8">
                 <div class="col-span-3">
                     <img
-                        src="https://2.bp.blogspot.com/-bevgFjjCS-A/Wf8QFKETXvI/AAAAAAAAA44/5M6_nw-QnOMDrVTocETug06M4WXAbtjvQCLcBGAs/s1600/pexels-photo-220570-min.jpeg"
-                        alt="user name"
+                        src="{{ $article->user->imageUrl() }}"
+                        alt="{{ $article->user->name }}"
                         class="w-32 h-32 object-cover"
                     >
                 </div>
                 <div class="col-span-9">
                     <div class="font-bold text-lg">
-                        Ashish Dhamala
+                        {{ $article->user->name }}
                     </div>
                     <div class="mt-4 text-gray-500">
-                        Hey there, We are Blossom Themes! We are trying to provide you the new way to look and use the
-                        blogger templates. Our designers are working hard and pushing the boundaries of possibilities to
-                        widen the horizon of the regular templates and provide high quality blogger templates to all
-                        hardworking bloggers!
+                        {!! $article->user->description !!}
                     </div>
                     <div class="mt-4 flex items-center space-x-2">
-                        <a
-                            href="#"
-                            class="text-[#3b5999]"
-                        >
-                            <x-icons.facebook class="w-4 h-4" />
-                        </a>
-                        <a
-                            href="#"
-                            class="text-[#55acee]"
-                        >
-                            <x-icons.twitter class="w-4 h-4" />
-                        </a>
-                        <a
-                            href="#"
-                            class="text-[#e4405f]"
-                        >
-                            <x-icons.instagram class="w-4 h-4" />
-                        </a>
+                        @foreach ($article->user->socialMedia as $media)
+                            <a
+                                href="{{ $media->pivot->url }}"
+                                class="text-[{{ $media->color }}]"
+                                target="_blank"
+                            >
+                                <x-dynamic-component :component="'icons.'.$media->nameLowercase()" class="w-4 h-4" />
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>

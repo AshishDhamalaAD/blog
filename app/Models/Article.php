@@ -102,9 +102,9 @@ class Article extends Model implements DorpdownableContract
 
     public function scopeVisible($query)
     {
-        return $query->where('status', ArticleStatusEnum::ACTIVE)
-            ->whereNotNull('published_at')
-            ->where('published_at', '<=', now())
-            ->latest('published_at');
+        return $query->where('articles.status', ArticleStatusEnum::ACTIVE)
+            ->whereNotNull('articles.published_at')
+            ->where('articles.published_at', '<=', now())
+            ->latest('articles.published_at');
     }
 }

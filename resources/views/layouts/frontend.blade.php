@@ -39,24 +39,14 @@
                     >Contact</a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a
-                        href="#"
-                        class="text-white block"
-                    >
-                        <x-icons.instagram class="w-4 h-4" />
-                    </a>
-                    <a
-                        href="#"
-                        class="text-white block"
-                    >
-                        <x-icons.facebook class="w-4 h-4" />
-                    </a>
-                    <a
-                        href="#"
-                        class="text-white block"
-                    >
-                        <x-icons.twitter class="w-4 h-4" />
-                    </a>
+                    @foreach ($websiteSocialMedia as $websiteMedia)
+                        <a
+                            href="{{ $websiteMedia->url }}"
+                            class="text-white block"
+                        >
+                            <x-dynamic-component :component="'icons.'.$websiteMedia->socialMedia->nameLowercase()" class="w-4 h-4" />
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </x-container>
@@ -107,9 +97,15 @@
                         {{ $slot }}
                     </div>
                     <div class="col-span-1 space-y-8">
-                        <x-sidebar-card title="Advertisement">
-                            content
-                        </x-sidebar-card>
+                        @if($sideAd)
+                            <x-sidebar-card title="Advertisement">
+                                <img
+                                    src="{{ $sideAd->imageUrl() }}"
+                                    alt="advertisement"
+                                    class="w-full"
+                                >
+                            </x-sidebar-card>
+                        @endif
                         <x-sidebar-card title="Recent">
                             <div class="space-y-2">
                                 <x-article.list title="The first article is here slfj slkdfj lskfjlskdjf lskdjf l" />

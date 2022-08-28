@@ -1,4 +1,4 @@
-<x-frontend-layout>
+<x-frontend-layout :sideAd="$sideAd">
     <div>
         <div class="mb-4">
             <h1 class="font-extrabold text-2xl">{{ $article->title }}</h1>

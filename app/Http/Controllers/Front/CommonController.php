@@ -10,6 +10,5 @@ class CommonController extends Controller
 
     public function __construct()
     {
-        // $this->data['menus'] = me
     }
 }

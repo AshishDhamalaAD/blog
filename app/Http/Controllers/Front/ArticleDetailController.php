@@ -24,11 +24,13 @@ class ArticleDetailController extends CommonController
             ->whereIn('position', [
                 AdvertisementPositionEnum::ARTICLE_TOP,
                 AdvertisementPositionEnum::ARTICLE_BOTTOM,
+                AdvertisementPositionEnum::ARTICLE_SIDE,
             ])
             ->get();
 
         $this->data['topAd'] = $ads->firstWhere('position', AdvertisementPositionEnum::ARTICLE_TOP);
         $this->data['bottomAd'] = $ads->firstWhere('position', AdvertisementPositionEnum::ARTICLE_BOTTOM);
+        $this->data['sideAd'] = $ads->firstWhere('position', AdvertisementPositionEnum::ARTICLE_SIDE);
 
         return view('articles.show', $this->data);
     }

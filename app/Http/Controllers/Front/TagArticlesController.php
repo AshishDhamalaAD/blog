@@ -13,6 +13,7 @@ class TagArticlesController extends CommonController
 
         $this->data['articles'] = $tag->articles()
             ->with(['user:id,name'])
+            ->latest('published_at')
             ->visible()
             ->simplePaginate(7);
 

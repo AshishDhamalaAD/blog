@@ -104,7 +104,6 @@ class Article extends Model implements DorpdownableContract
     {
         return $query->where('articles.status', ArticleStatusEnum::ACTIVE)
             ->whereNotNull('articles.published_at')
-            ->where('articles.published_at', '<=', now())
-            ->latest('articles.published_at');
+            ->where('articles.published_at', '<=', now());
     }
 }

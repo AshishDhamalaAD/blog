@@ -108,29 +108,23 @@
                         @endif
                         <x-sidebar-card title="Recent">
                             <div class="space-y-2">
-                                <x-article.list title="The first article is here slfj slkdfj lskfjlskdjf lskdjf l" />
-                                <x-article.list title="The first article is here" />
-                                <x-article.list title="The first article is here" />
-                                <x-article.list title="The first article is here" />
-                                <x-article.list title="The first article is here" />
+                                @foreach ($recentArticles as $recentArticle)
+                                    <x-article.list :article="$recentArticle" />
+                                @endforeach
                             </div>
                         </x-sidebar-card>
                         <x-sidebar-card title="Popular">
                             <div class="space-y-2">
-                                <x-article.list title="The first article is here" />
-                                <x-article.list title="The first article is here the first article is here" />
-                                <x-article.list title="The first article is here" />
-                                <x-article.list title="The first article is here" />
-                                <x-article.list title="The first article is here" />
+                                @foreach ($popularArticles as $popularArticle)
+                                    <x-article.list :article="$popularArticle" />
+                                @endforeach
                             </div>
                         </x-sidebar-card>
-                        <x-sidebar-card title="Tags">
+                        <x-sidebar-card title="Popular Tags">
                             <div class="space-y-2">
-                                <x-tags.list />
-                                <x-tags.list />
-                                <x-tags.list />
-                                <x-tags.list />
-                                <x-tags.list />
+                                @foreach ($tags as $tag)
+                                    <x-tags.list :tag="$tag" />
+                                @endforeach
                             </div>
                         </x-sidebar-card>
                     </div>

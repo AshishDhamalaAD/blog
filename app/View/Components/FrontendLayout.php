@@ -3,6 +3,8 @@
 namespace App\View\Components;
 
 use App\Models\Advertisement;
+use App\Models\Article;
+use App\Models\Tag;
 use App\Models\WebsiteSocialMedia;
 use Illuminate\View\Component;
 
@@ -22,7 +24,30 @@ class FrontendLayout extends Component
             ->with('socialMedia:id,name')
             ->get();
 
-        // dd($this->data['websiteSocialMedia']->first());
+        $this->data['recentArticles'] = Article::query()
+            ->select(['id', 'title', 'slug', 'image', 'user_id'])
+            ->with(['user:id,name'])
+            ->visible()
+            ->latest('published_at')
+            ->take(5)
+            ->get();
+
+        $this->data['popularArticles'] = Article::query()
+            ->select(['id', 'title', 'slug', 'image', 'user_id', 'views'])
+            ->with(['user:id,name'])
+            ->visible()
+            ->latest('views')
+            ->take(5)
+            ->get();
+
+        $this->data['tags'] = Tag::query()
+            ->select(['id', 'name', 'slug'])
+            ->withSum('articles', 'views')
+            ->take(5)
+            ->orderByDesc('articles_sum_views')
+            ->get();
+
+        // dd($this->data['recentArticles']->toArray());
 
         return view('layouts.frontend', $this->data);
     }

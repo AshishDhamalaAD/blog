@@ -15,6 +15,7 @@ class HomeController extends CommonController
     {
         $this->data['articles'] = Article::query()
             ->with(['user:id,name'])
+            ->latest('published_at')
             ->visible()
             ->simplePaginate(7);
 

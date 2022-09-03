@@ -26,15 +26,15 @@
             <div class="flex items-center justify-between py-2">
                 <div class="flex items-center space-x-4">
                     <a
-                        href="/"
+                        href="{{ route('home') }}"
                         class="text-white block"
                     >Home</a>
                     <a
-                        href="#"
+                        href="{{ route('about-us') }}"
                         class="text-white block"
                     >About</a>
                     <a
-                        href="#"
+                        href="{{ route('contact-us') }}"
                         class="text-white block"
                     >Contact</a>
                 </div>
@@ -97,7 +97,7 @@
                         {{ $slot }}
                     </div>
                     <div class="col-span-1 space-y-8">
-                        @if($sideAd)
+                        @if($sideAd?->exists)
                             <x-sidebar-card title="Advertisement">
                                 <img
                                     src="{{ $sideAd->imageUrl() }}"

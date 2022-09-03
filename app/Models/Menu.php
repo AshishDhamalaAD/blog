@@ -23,6 +23,11 @@ class Menu extends Model
         return $this->article_id !== null;
     }
 
+    public function hasNoChildren(): bool
+    {
+        return $this->children->isEmpty();
+    }
+
     public function children(): HasMany
     {
         return $this->hasMany(Menu::class, 'parent_id');
@@ -36,5 +41,10 @@ class Menu extends Model
     public function article(): BelongsTo
     {
         return $this->belongsTo(Article::class, 'article_id');
+    }
+
+    public function scopeRoot($builder)
+    {
+        return $builder->whereNull('parent_id');
     }
 }

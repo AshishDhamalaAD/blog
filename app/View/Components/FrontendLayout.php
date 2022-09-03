@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use App\Models\Advertisement;
 use App\Models\Article;
+use App\Models\Menu;
 use App\Models\Tag;
 use App\Models\WebsiteSocialMedia;
 use Illuminate\View\Component;
@@ -45,6 +46,12 @@ class FrontendLayout extends Component
             ->withSum('articles', 'views')
             ->take(5)
             ->orderByDesc('articles_sum_views')
+            ->get();
+
+        $this->data['menus'] = Menu::query()
+            ->select(['id', 'name', 'url', 'type'])
+            ->with(['children:id,parent_id,name,url,article_id', 'children.article:id,title,slug,image'])
+            ->root()
             ->get();
 
         // dd($this->data['recentArticles']->toArray());

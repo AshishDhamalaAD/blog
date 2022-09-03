@@ -59,36 +59,41 @@
             </div>
             <nav class="border-b border-t">
                 <ul class="flex items-center justify-center relative">
-                    <li>
-                        <x-navbar.list title="Home" link="/" />
-                    </li>
-                    <li>
-                        <x-navbar.list title="Documentation" link="#" />
-                    </li>
-                    <li class="relative group">
-                        <div class="flex items-center">
-                            <x-navbar.list title="Sub Menu" link="#" />
-                            <x-icons.chevron-down class="w-2 h-2" />
-                        </div>
-                        <div class="absolute top-[57px] left-0 z-10 min-w-[300px] bg-white shadow invisible opacity-0 translate-y-10 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all">
-                            <x-navbar.list title="Sub Sub Menu skdfj slkdjf lksdjf l" link="#" class="border-b" />
-                            <x-navbar.list title="Sub Sub Menu" link="#" class="border-b" />
-                            <x-navbar.list title="Sub Sub Menu" link="#" class="border-b" />
-                            <x-navbar.list title="Sub Sub Menu" link="#" class="border-b" />
-                        </div>
-                    </li>
-                    <li class="group">
-                        <div class="flex items-center">
-                            <x-navbar.list title="Sub Menu With Image" link="#" />
-                            <x-icons.chevron-down class="w-2 h-2" />
-                        </div>
-                        <div class="absolute top-[57px] left-0 z-10 min-w-full bg-white shadow invisible opacity-0 translate-y-10 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all">
-                            <div class="flex justify-center">
-                                <x-navbar.grid title="Sub Sub Menu skdfj slkdjf lksdjf l" link="#" />
-                                <x-navbar.grid title="Sub Sub Menu" link="#" />
-                            </div>
-                        </div>
-                    </li>
+                    @foreach ($menus as $menu)
+                        @if($menu->hasNoChildren())
+                            <li>
+                                <x-navbar.list :title="$menu->name" :link="$menu->url" />
+                            </li>
+                        @else
+                            @if($menu->type->isBasic())
+                                <li class="relative group">
+                                    <div class="flex items-center">
+                                        <x-navbar.list :title="$menu->name" link="#" />
+                                        <x-icons.chevron-down class="w-2 h-2" />
+                                    </div>
+                                    <div class="absolute top-[57px] left-0 z-10 min-w-[300px] bg-white shadow invisible opacity-0 translate-y-10 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all">
+                                        @foreach ($menu->children as $child)
+                                            <x-navbar.list :title="$child->name" :link="$child->url" class="border-b" />
+                                        @endforeach
+                                    </div>
+                                </li>
+                            @elseif($menu->type->isArticle())
+                                <li class="group">
+                                    <div class="flex items-center">
+                                        <x-navbar.list :title="$menu->name" link="#" />
+                                        <x-icons.chevron-down class="w-2 h-2" />
+                                    </div>
+                                    <div class="absolute top-[57px] left-0 z-10 min-w-full bg-white shadow invisible opacity-0 translate-y-10 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all">
+                                        <div class="flex justify-center">
+                                            @foreach ($menu->children as $child)
+                                                <x-navbar.grid :title="$child->article->title" :link="route('articles.show', $child->article)" :image="$child->article->imageUrl()" />
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </li>
+                            @endif
+                        @endif
+                    @endforeach
                 </ul>
             </nav>
             <div class="py-8">

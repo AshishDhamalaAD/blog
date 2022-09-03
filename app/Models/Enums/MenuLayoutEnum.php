@@ -13,4 +13,14 @@ enum MenuLayoutEnum: int implements DorpdownableContract
 
     case LIST = 1;
     case GRID = 2;
+
+    public function isList(): bool
+    {
+        return $this === self::LIST;
+    }
+
+    public function isGrid(): bool
+    {
+        return $this === self::GRID;
+    }
 }
